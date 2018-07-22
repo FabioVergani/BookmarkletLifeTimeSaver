@@ -1,1 +1,1 @@
-javascript:(w=>{w.document.documentElement.style.background='#000'})(open());
+javascript:(o=>{o.background='#000'})(document.documentElement.style);
