@@ -30,9 +30,9 @@
 							const m=x.children,l=m.length;
 							if(l!==0){
 								const e=x.insertBefore(d.createElement('p'),m[0]);
-								e.innerHTML='tot:\u2009';
+								e.innerHTML='\uD83D\uDCBE:\u2009';
 								e.appendChild(x.labelNum=d.createElement('b')).innerHTML=l;
-								e.style='text-align:right;user-select:none;color:#a7a7a7';
+								e.style='font-family:verdana;text-align:right;user-select:none;cursor:pointer;color:#7c7b7b';
 								at(e,'click',v[0]);
 								return true
 							}else{
