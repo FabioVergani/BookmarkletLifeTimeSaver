@@ -1,1 +1,5 @@
 https://cs.chromium.org/
+
+https://cs.chromium.org/chromium/src/chrome/browser/resources/bookmarks/app.js?q=bookmarks.getTree&sq=package:chromium&dr=C&l=49
+
+https://developers.chrome.com/extensions/bookmarks#method-getTree
