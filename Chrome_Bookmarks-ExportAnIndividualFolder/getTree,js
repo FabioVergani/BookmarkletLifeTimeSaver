@@ -1,0 +1,29 @@
+(w=>{
+	const d=w.document,
+
+	div=(x=>{
+		let e=d.getElementById(x);
+		if(null===e){
+			e=d.createElement('div');
+			const o=e.style;
+			o.display='none';
+			o.backgroundColor='#fffcdf';
+			o.color='#270101';
+			o.maxHeight='calc(100vh - 82px)';
+			o.overflowX='hidden';
+			o.overflowY='scroll';
+			o.whiteSpace='pre';
+			o.padding='1em';
+			e.id=x;
+			d.body.prepend(e)
+		};
+		return e
+	})('myDiv');
+	//
+	w.chrome.bookmarks.getTree(items=>{
+		//div.innerText=JSON.stringify(JSON.parse(JSON.stringify(items)),null,'\t');
+		div.innerText=JSON.stringify(items,null,'\t');
+		div.style.display='block';
+	});
+
+})(window);
