@@ -1,0 +1,96 @@
+(w=>{
+	const d=w.document,
+	ƒ=load=>{
+		const d=load.target,
+		dumpWrapper=(()=>{
+			let x='dump-wrapper',e=d.getElementById(x);
+			if(null===e){
+				const b=d.body,
+				c=b.classList,
+				xShowClass=x+'-show',
+				bMaximizedClass=x+'_maximized',
+				bHalfHeightClass=x+'_half-height',
+				frag=d.createDocumentFragment();
+				//
+				frag.appendChild(d.createElement('style')).textContent=`
+
+					#${x}{
+						display:none;
+						position:relative;
+						white-space:pre;
+						overflow-x:auto;
+						overflow-y:scroll;
+						box-sizing:border-box;
+						padding:1em;
+						height:50vh;
+						background:#fffcdf;
+						color:#270101
+					}
+
+					#maximize-${x}{
+						position:absolute;
+						top:0;
+						right:0;
+						border:0;
+						outline:0;
+						cursor:pointer;
+						background:#eae8cf;
+						color:#a49993;
+					}
+
+					#maximize-${x}:hover{
+						background:#dedbc2;
+						color:#43362e;
+					}
+
+					body.${x}-show #${x}{display:block}
+
+					body.${x}-show.${bHalfHeightClass} bookmarks-app{height:50vh}
+					body.${x}_maximized bookmarks-app{display:none}
+
+
+				`;
+				//
+				e=frag.appendChild(d.createElement('div'));
+				e.unlocked=true;
+				e.id=x;
+				//
+				e.show=()=>{c.add(xShowClass,bHalfHeightClass)};
+				//e.hide=()=>{c.remove(xShowClass)};
+				//
+				x=e.appendChild(d.createElement('input'));
+				x.value='\u2197';
+				x.type='button';
+				x.id='maximize-'+e.id;
+
+				//
+				x.onclick=click=>{
+					let a,b;
+					c[c.toggle(bHalfHeightClass)?(a='50vh',b='\u2197','remove'):(a='100vh',b='\u2199','add')](bMaximizedClass);
+					e.style.height=a;
+					click.target.value=b
+				};
+				//
+				b.prepend(e.domCache=frag);
+				e.show()
+			};
+			return e
+		})();
+		//...
+		//...
+	},
+	onceWhen=(e,s,c)=>{
+		let f=o=>{
+			e.removeEventListener(s,f);
+			f=null;
+			c(o)
+		};
+		e.addEventListener(s,f)
+	};
+	//
+	if('complete'!==d.readyState){
+		onceWhen(w,'load',ƒ)
+	}else{
+		ƒ({target:d})
+	}
+})(window);
