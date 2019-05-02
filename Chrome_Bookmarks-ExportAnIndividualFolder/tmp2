@@ -1,0 +1,55 @@
+(w=>{
+	if('chrome://bookmarks'===w.location.href.substring(0,18)){
+		const d=w.document,
+		ƒ=loaded=>{
+			const d=loaded.target;
+			(d.bookmarksDumper||(d.bookmarksDumper=(d=>{
+				const bookmarksApp=d.getElementById('bookmarks-app');
+				if(null!==bookmarksApp){
+/*					
+					x=x.root;
+					if(x && (x=x.children) && 0!==x.length){
+							const bookmarksToolbar=x[1];
+							if(bookmarksToolbar){
+								
+							}
+							mainContainer=x[2];
+							x=mainContainer.children;
+							if(x && (x=x.children) && 0!==x.length){
+								const sideBar=x[0];
+								if(sideBar){
+									
+								}
+
+selectedFolder_
+canDump=true:
+*/
+							}
+					}
+					
+					return d=>{
+						if(canDump){
+							canDump=false;
+
+
+							canDump=true
+						}
+					}
+				}
+			})(d)))(d)
+		},
+		onceWhen=(e,s,c)=>{
+			let f=o=>{
+				e.removeEventListener(s,f);
+				f=null;
+				c(o)
+			};
+			e.addEventListener(s,f)
+		};
+		if('complete'!==d.readyState){
+			onceWhen(w,'load',ƒ)
+		}else{
+			ƒ({target:d})
+		}
+	}
+})(window);
