@@ -1,3 +1,4 @@
+console.clear();
 (d=>{
 	if('bookmarks'===d.domain){
 		const onceAt=(e,s,ƒ)=>{
@@ -8,18 +9,27 @@
 			};
 			e.addEventListener(s,g)
 		},
-		onceReady=(d,ƒ)=>{
+		onceReady=(w,ƒ)=>{
+			const d=w.document;
 			if('complete'!==d.readyState){
-				onceAt(d.defaultView,'load',ƒ)
+				onceAt(w,'load',ƒ)
 			}else{
 				ƒ({target:d})
 			}
 		};
-		onceReady(d,loaded=>{
-			const d=loaded.target, w=d.defaultView, chrome=w.chrome;
+		onceReady(d.defaultView,loadEvent=>{
+			const d=loadEvent.target, w=d.defaultView, chrome=w.chrome;
 			if(chrome){
-				const Tabs=chrome.tabs;
-				alert(2)
+				let canDump, body2=null, dumpResult='zzz';
+				const printDump=x=>{};
+				//
+				onceReady(w.open('about:blank'),loadEvent2=>{
+					canDump=false;
+					const d2=loadEvent2.target;
+					(body2=d2.body).innerHTML=dumpResult;
+					dumpResult=null;
+					canDump=true
+				});
 			}
 		})
 	}
