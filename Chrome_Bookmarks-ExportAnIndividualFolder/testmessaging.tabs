@@ -1,3 +1,33 @@
+(d=>{
+	if('bookmarks'===d.domain){
+		const onceAt=(e,s,ƒ)=>{
+			let g=o=>{
+				e.removeEventListener(s,g);
+				g=null;
+				ƒ(o)
+			};
+			e.addEventListener(s,g)
+		},
+		onceReady=(d,ƒ)=>{
+			if('complete'!==d.readyState){
+				onceAt(d.defaultView,'load',ƒ)
+			}else{
+				ƒ({target:d})
+			}
+		};
+		onceReady(d,loaded=>{
+			const d=loaded.target, w=d.defaultView, chrome=w.chrome;
+			if(chrome){
+				const Tabs=chrome.tabs;
+				alert(2)
+			}
+		})
+	}
+})(document);
+
+
+----
+
 (w=>{
 	const d=w.document;
 	if('bookmarks'===d.domain){
