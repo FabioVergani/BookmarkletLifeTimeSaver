@@ -1,0 +1,39 @@
+(w=>{
+	const d=w.document;
+	if('bookmarks'===d.domain){
+		const ƒ=loaded=>{
+			const d=loaded.target, w=d.defaultView, chrome=w.chrome;
+			if(chrome){
+				const tabs=chrome.tabs;
+
+
+				tabs.getCurrent(currentTab=>{
+					xx=currentTab;
+					tabs.create({
+						'url':'data:text/html,'+encodeURIComponent('<html><body>Hi!</body></html>'),
+						'openerTabId':currentTab.id
+					},createdTab=>{
+						//alert('id:'+createdTab.id+',openerTabId:'+createdTab.openerTabId);
+					});
+				})
+
+
+			}
+		},
+		onceAt=(e,s,c)=>{let f=o=>{e.removeEventListener(s,f);f=null;c(o)};e.addEventListener(s,f)};
+		if('complete'!==d.readyState){onceAt(w,'load',ƒ)}else{ƒ({target:d})}
+	}
+})(window);
+/*
+				let e=d.getElementById('bookmarks-app');
+
+				//alert(e)//'about:blank'
+				chrome.tabs.create({
+					'url':'data:text/html,'+encodeURIComponent('<html><body>Hi!</body></html>'),
+					openerTabId:
+				},tab=>{
+					alert('id:'+tab.id+',openerTabId:'+tab.openerTabId)
+				});
+
+
+*/
