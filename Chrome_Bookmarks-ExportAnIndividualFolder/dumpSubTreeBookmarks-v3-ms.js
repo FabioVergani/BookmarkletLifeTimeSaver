@@ -43,7 +43,8 @@ console.clear();
 													const div=f(li,'div'),node=nodes.shift();
 													let x=node.title;
 													if(x && 0!==(x=x.trim()).length){
-														f(div,'h3').textContent=x
+														f(div,'b').textContent=x;
+														f(div,'br')
 													};
 													if((x=node.children) && 0!==x.length){
 														dumpTree(x,f(div,'ul'))
