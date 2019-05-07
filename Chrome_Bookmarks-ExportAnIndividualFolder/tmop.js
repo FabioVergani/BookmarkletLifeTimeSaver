@@ -1,9 +1,10 @@
+console.clear();
 (w=>{
 	(
 		w.dumpBookmarksFolder||(
-			w.dumpBookmarksFolder=(
+			w.dumpBookmarksFolder='bookmarks'!==w.document.domain?w.alert:(
 				w=>{
-					const markletOrDataUriPattern=/^(?:\s|%20)*((?:javascript|data):)(.{1,36})/i,
+					const JsOrDataProtocolPattern=/(?:^\s*(?:javascript|data):)/i,
 					onceAt=(e,s,f)=>{
 						let x=o=>{
 							e.removeEventListener(s,x);
@@ -24,39 +25,43 @@
 						if(canDump){
 							canDump=false;
 							onceReady(w,w=>{
-								let foldID=w.location.search;
-								if('undefined'===foldID||0===foldID.length||null===(foldID=new w.URLSearchParams(foldID).get('id'))){
-									foldID='1'
-								};
+								let foldID=(w=>{
+									let x=w.location.search;
+									if('undefined'===x||0===x.length||null===(x=new w.URLSearchParams(x).get('id'))){
+										x='1'
+									};
+									return x
+								})(w);
+								//console.info('foldID:%o',foldID);
 								w.chrome.bookmarks.getSubTree(foldID,treeNodes=>{
 									if(0!==treeNodes.length){
 										const d=w.document,
 										frag=d.createDocumentFragment(),
 										nest=(a,b)=>a.appendChild(d.createElement(b)),
-										dumpTree=(m,ul)=>{
-											const f=nest;
-											while(0!==m.length){
-												const p=f(li,'p'),node=m.shift();
-												let x=node.title;
-												if(x && 0!==(x=x.trim()).length){
-													f(p,'b').textContent=x
-												};
-												x=node.children;
-												if(0!==x.length){
-													dumpTree(x,f(p,'ul'))
-												}else{
-													x=node.url;
+										dumpTree=(nodes,ul)=>{
+											if(0!==nodes.length){
+												const f=nest,li=f(ul,'li'),pattern=JsOrDataProtocolPattern;
+												while(0!==nodes.length){
+													const div=f(li,'div'),node=nodes.shift();
+													let x=node.title;
 													if(x && 0!==(x=x.trim()).length){
-														const a=f(p,'a'),m=(a.href=x).match(markletOrDataUriPattern);
-														a.textContent=null!==m?m.join()+'...':x
+														div.textContent=x
+													}else{
+														div.className='untitled'
+													};
+													if((x=node.children) && 0!==x.length){
+														div.classList.add('folder');
+														dumpTree(x,f(div,'ul'))
+													}else if(x=node.url){
+														const a=f(div,'a');
+														a.textContent=pattern.test(a.href=x)?x.substring(0,36)+'\u2026':x;
 													}
 												}
 											}
 										};
-										nest(frag,'style').textContent='.tree{font:12px/normal sans-serif}';
-
+										//
 										dumpTree(treeNodes,nest(frag,'ul'));
-
+										//
 										onceReady(w.open('about:blank'),w2=>{
 											w2.title=foldID;
 											w2.document.body.appendChild(frag);
@@ -74,4 +79,3 @@
 		)
 	)(w)
 })(window);
-
