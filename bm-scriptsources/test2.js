@@ -33,14 +33,13 @@ void((w=>{
 							r[i]=m.join('\n')
 						}
 					};
-					//console.dir(results);
-					const d2=w.open().document, pre=d.createDocumentFragment().appendChild(d.createElement('pre'));
-					pre.style.whiteSpace='pre-line';
-					pre.textContent=results.join('\n');
-					pre.contentEditable=true;
-					pre.spellcheck=false;
-					d2.body.appendChild(pre);
-					d2.title=results.length
+					const a=d.createElement('a');
+					a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(results.join('\n'))
+					a.download='scripts';
+					a.style.display='none';
+					d.body.appendChild(a);
+					a.click();
+					a.remove();
 				})
 			}
 		}
