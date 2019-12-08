@@ -37,7 +37,7 @@
 			}
 		}
 	};
-	Promise.all(promises).then(a=>{
+	await Promise.all(promises).then(a=>{
 		const m=result,
 		p=(
 			a.forEach(v=>{
