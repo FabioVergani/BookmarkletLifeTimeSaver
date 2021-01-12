@@ -36,10 +36,10 @@ javascript:(()=>{
 		const x=nest(main,'p'),g=(y,z)=>{nest(x,y).textContent=z};
 		g('b',cssPath(e));
 		g('pre',f(e).cssText.replace(rgx, '$1\n'));
-		e=walker.nextNode();
+		e=walker.nextNode()
 	};
 	e=window.open().document.body;
 	e.style.display='none';
 	e.appendChild(main);
-	e.style.display='block';
+	e.style.display='block'
 }})();
